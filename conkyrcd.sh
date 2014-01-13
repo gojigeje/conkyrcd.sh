@@ -5,8 +5,8 @@
 # [v] siangmalam                       siangmalam
 # [ ] hijri                            hijri
 # [ ] imsakiyah                        imsakiyah
-# [ ] greeting                         greet
-# [ ] cek koneksi                      koneksi
+# [v] greeting                         greet
+# [v] cek koneksi                      koneksi
 # [ ] conan?                           conan?
 # [ ] cek server                       server
 # [ ] kernel checker                   kernel
@@ -15,7 +15,7 @@
 # [ ] last update last scanpackages    update?
 # [ ] dmesg                            dmesg
 
-# ------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 function setup() {
    hari=$(date +%u)
@@ -26,7 +26,7 @@ function setup() {
 }
 
 # waktu
-# ------------------------------------------------------------
+# ----------------------------------------------------------------------
 function waktu_namaBulan()
 {  
    case "$1" in
@@ -161,7 +161,7 @@ function waktu_() {
 }
 
 # siangmalam
-# ------------------------------------------------------------
+# ----------------------------------------------------------------------
 siangmalam_cek()
 {
    case "$jam" in
@@ -188,8 +188,179 @@ siangmalam_() {
    echo $greet
 }
 
+# greeting
+# ----------------------------------------------------------------------
+greeting_cek()
+{
+      case "$jam" in
+      01)
+         greet="Lagi lembur ya? jgn tidur malem-malem loo.."
+      ;;
+      02)
+         greet="Stop lemburnya bos, cepetan tidur..! @.@"
+      ;;
+      03)
+         greet="Nanggung deh kalo jam segini tidur.."
+      ;;
+      04)
+         greet="Udah sholat subuh apa belom bos?"
+      ;;
+      05)
+         greet="Tumben pagi-pagi gini dah bangun? :D"
+      ;;
+      06)
+         greet="Udah sikat gigi belum nih? bau :("
+      ;;
+      07)
+         greet="Udah mandi bos..? Cuci muka gitu..??"
+      ;;
+      08)
+         greet="Sarapan apa yaa..? (padahal mandi aja belum)"
+      ;;
+      09)
+         greet="Ayo kerja kerjaaa..!!! (Semangat Mode: ON)"
+      ;;
+      10)
+         greet="Masak jam segini udah laper lagi sih bos..??!"
+      ;;
+      11)
+         greet="Jam segini kok bawaannya udah ngantuk ya? :("
+      ;;
+      12)
+         greet="Sholat Dzuhur.. terus Tiduuuurrr.. :D"
+      ;;
+      13)
+         greet="Sudah sholat Dzuhur?.. Kok jadi ngantuk ya.. :("
+      ;;
+      14)
+         greet="Jam segini sih paling enak tidur bos.. :D"
+      ;;
+      15)
+         greet="Sudah sholat Ashar pa belum ni bos..?"
+      ;;
+      16)
+         greet="Ashar-nya udah?.. Perut mulai laper lagi.. -_-"
+      ;;
+      17)
+         greet="Mandi mandi sono dulu, biar seger dikit.."
+      ;;
+      18)
+         greet="Sholat Maghribnya sudah bos..?"
+      ;;
+      19)
+         greet="Sholat Isya' udah? Saatnya makan.. :D"
+      ;;
+      20)
+         greet="Enaknya belajar apa nonton film ya..? :D"
+      ;;
+      21)
+         greet="Isya' | Jam segini.. masih soree... :D"
+      ;;
+      22)
+         greet="Isya' | Mata udah mulai ngantuk... >_<"
+      ;;
+      23)
+         greet="Belum ngantuk bos? Hwoooaaaahm... >_<"
+      ;;
+      *)
+         greet="Zzz.. Zzz.. (-_-) Zzz.. Zzz.."
+      ;;
+      esac  
+}
+
+greeting_hari_jumat()
+{
+   case "$hari" in
+      # Siap-siap jumatan
+      5) #5=jumat
+         if [ "$jam" = "11" ]; then
+               greet="Ayo siap-siap sholat Jumat dulu bos.."
+            else
+            if [ "$jam" = "12" ]; then
+               greet="Habis Jumatan gini enaknya ya tidur :D"
+               else
+               if [ "$jam" = "13" ]; then
+                     greet="Jumat siang, buat tidur mantap nih :D"
+               fi
+            fi
+         fi
+      ;;
+   esac 
+}
+
+greeting_ramadhan() {
+   case "$jam" in
+      01)
+         greet="Jam segini melek, mau ronda ya bos?"
+      ;;
+      02)
+         greet="Ronda.. Ronda.. SAHUUURRR...!! "
+      ;;
+      03)
+         greet="Ayo Sahuuuur.. Sahuurrrr...!"
+      ;;
+      04)
+         greet="Imsyaaak..! Ayo Sholat Subuh jamaah.."
+      ;;
+      05)
+         greet="Pagi hari di bulan Ramadhan.. Segerr.."
+      ;;
+      06)
+         greet="Selamat pagi.. :) Semangat Ramadhan ^_^"
+      ;;
+      07)
+         greet="Selamat pagi.. :) Semangat Ramadhan ^_^"
+      ;;
+      08)
+         greet="Mau aktifitas apa hari ini? Semangat yaa :)"
+      ;;
+      16)
+         greet="Ashar-nya udah? ~ Bentar lagi buka puasa :)"
+      ;;
+      17)
+         greet="Alhamdulillah..! Sebentar lagi buka puasa T.T"
+      ;;
+      18)
+         greet="Buka puasa.. Jangan kebanyakan makan ya ^_^"
+      ;;
+      19)
+         greet="Ayo siap-siap sholat traweh jamaah.. :)"
+      ;;
+      20)
+         greet="Besok makan sahur pake apa yaa..??"
+      ;;
+      21)
+         greet="Tidur awal bos.. biar besok ndak telat sahur.."
+      ;;
+      22)
+         greet="Ndang tidur,, besok jangan telat sahur lo..."
+      ;;
+      23)
+         greet="Begadang sampe sahur apa tidur nih?"
+      ;;
+   esac
+}
+
+greeting_()
+{
+   greeting_cek
+   greeting_hari_jumat
+   echo $greet
+}
+
+# koneksi
+# ----------------------------------------------------------------------
+function koneksi_() {
+   if eval "ping -c 1 8.8.4.4 -w 2 > /dev/null 2>&1"; then
+     echo "Siip, terhubung dengan internet.. Online.. Online... :D"
+   else
+     echo "Tidak terhubung dengan internet.. payah.. :("
+   fi 
+}
+
+
 # main
-# ------------------------------------------------------------
+# ----------------------------------------------------------------------
 setup
 case "$1" in
    "waktu" )
@@ -199,5 +370,13 @@ case "$1" in
    "siangmalam" )
       shift
       siangmalam_
+   ;;
+   "greeting" )
+      shift
+      greeting_
+   ;;
+   "koneksi" )
+      shift
+      koneksi_
    ;;
 esac
