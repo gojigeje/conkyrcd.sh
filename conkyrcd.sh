@@ -8,7 +8,7 @@
 # [v] greeting                         greet
 # [v] cek koneksi                      koneksi
 # [ ] conan?                           conan?
-# [ ] cek server                       server
+# [!] cek server                       server
 # [ ] kernel checker                   kernel
 # [ ] cek cache                        cache
 # [ ] updatemon                        update
@@ -272,17 +272,17 @@ greeting_hari_jumat()
    case "$hari" in
       # Siap-siap jumatan
       5) #5=jumat
-         if [ "$jam" = "11" ]; then
+         case "$jam" in
+            11 )
                greet="Ayo siap-siap sholat Jumat dulu bos.."
-            else
-            if [ "$jam" = "12" ]; then
+            ;;
+            12 )
                greet="Habis Jumatan gini enaknya ya tidur :D"
-               else
-               if [ "$jam" = "13" ]; then
-                     greet="Jumat siang, buat tidur mantap nih :D"
-               fi
-            fi
-         fi
+            ;;
+            13 )
+               greet="Jumat siang, buat tidur mantap nih :D"
+            ;;
+         esac
       ;;
    esac 
 }
@@ -360,7 +360,7 @@ koneksi_() {
 # server
 # ----------------------------------------------------------------------
 server_cek_httpd() {
-   stat_httpd=$(ps ax | grep -v grep | grep -c httpd)
+   stat_httpd=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c httpd)
    if [ $stat_httpd -le 0 ]
       then
          echo "OFF"
@@ -369,7 +369,7 @@ server_cek_httpd() {
    fi
 }
 server_cek_mysqld() {
-   stat_mysqld=$(ps ax | grep -v grep | grep -c mysqld)
+   stat_mysqld=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c mysqld)
    if [ $stat_mysqld -le 0 ]
       then
          echo "OFF"
@@ -378,7 +378,7 @@ server_cek_mysqld() {
    fi
 }
 server_cek_ftpd() {
-   stat_ftpd=$(ps ax | grep -v grep | grep -c ftpd)
+   stat_ftpd=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c ftpd)
    if [ $stat_ftpd -le 0 ]
       then
          echo "OFF"
@@ -387,7 +387,7 @@ server_cek_ftpd() {
    fi
 }
 server_cek_sshd() {
-   stat_sshd=$(ps ax | grep -v grep | grep -c sshd)
+   stat_sshd=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c sshd)
    if [ $stat_sshd -le 0 ]
       then
          echo "OFF"
@@ -396,7 +396,7 @@ server_cek_sshd() {
    fi
 }
 server_cek_named() {
-   stat_named=$(ps ax | grep -v grep | grep -c named)
+   stat_named=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c named)
    if [ $stat_named -le 0 ]
       then
          echo "OFF"
@@ -405,7 +405,7 @@ server_cek_named() {
    fi
 }
 server_cek_logkeys() {
-   stat_logkeys=$(ps ax | grep -v grep | grep -c logkeys)
+   stat_logkeys=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c logkeys)
    if [ $stat_logkeys -le 0 ]
       then
          echo "OFF"
@@ -414,7 +414,7 @@ server_cek_logkeys() {
    fi
 }
 server_cek_nginx() {
-   stat_nginx=$(ps ax | grep -v grep | grep -c nginx)
+   stat_nginx=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c nginx)
    if [ $stat_nginx -le 0 ]
       then
          echo "OFF"
@@ -449,6 +449,19 @@ server_() {
    esac
 }
 
+# main
+# ----------------------------------------------------------------------
+cache_() {
+   cd /var/cache/apt/archives
+   jumlah=$(ls | wc -l)
+   if [ "$jumlah" = "2" ]; then
+            echo "Tidak ada file .deb baru di cache.."
+   else
+      jumdeb=$(( jumlah - 2 ))
+      total=$(du -sh | awk '{print $1}')
+      echo "Ada $jumdeb file .deb di cache  -  Total: $total  -->  backup / cleanup ?"
+   fi
+}
 
 # main
 # ----------------------------------------------------------------------
@@ -470,5 +483,8 @@ case "$1" in
    "server" )
       shift
       server_ "$@"
+   ;;
+   "cache" )
+      cache_
    ;;
 esac
