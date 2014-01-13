@@ -1,20 +1,48 @@
 #!/bin/bash
-
-# TODO                               # parameter
-# [v] tanggalan hari bulan             waktu
-# [v] siangmalam                       siangmalam
-# [ ] hijri                            hijri
-# [ ] imsakiyah                        imsakiyah
-# [v] greeting                         greet
-# [v] cek koneksi                      koneksi
-# [ ] conan?                           conan?
-# [!] cek server                       server
-# [ ] kernel checker                   kernel
-# [ ] cek cache                        cache
-# [ ] updatemon                        update
-# [ ] last update last scanpackages    update?
-
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
+# @name    : conkyrcd.sh
+# @version : 0.1
+# @date    : 01/13/2014 08:19:04 PM
+#
+# TENTANG
+# ----------------------------------------------------------------------------------
+# Simple bash script to display various system information. Intended to use with 
+# conky as external script.
+# (id) Script sederhana untuk menampilkan berbagai macam informasi sistem. Ditujukan
+# untuk digunakan bersamaan dengan conky sebagai script eksternal.
+#
+# KONTAK
+# ----------------------------------------------------------------------------------
+# Ada bug? saran? sampaikan ke saya.
+# Ghozy Arif Fajri / gojigeje
+# email    : gojigeje@gmail.com
+# web      : goji.web.id
+# facebook : facebook.com/gojigeje
+# twitter  : @gojigeje
+# G+       : gplus.to/gojigeje
+#
+# TODO                               # parameter    # note
+# [v] tanggalan hari bulan             waktu          ok
+# [v] siangmalam                       siangmalam     ok
+# [v] greeting                         greet          ok
+# [v] cek koneksi                      koneksi        ok
+# [v] cek server                       server         ok
+# [v] cek cache                        cache          ok
+# [ ] hijri                            hijri          
+# [ ] kernel checker                   kernel         
+#
+# NOT-TODO
+# [ ] imsakiyah                        imsakiyah      done (https://github.com/gojigeje/imsakiyah.sh)
+# [ ] updatemon                        update         perlu sudo
+# [ ] last update last scanpackages    update?        perlu monitor apt-get
+# [ ] dmesg                            dmesg          dmesg ga perlu script eksternal
+# [ ] conan?                           conan?         ga penting buat orang lain
+#
+# LISENSI
+# ----------------------------------------------------------------------------------
+# Open Source tentunya :)
+#  The MIT License (MIT)
+#  Copyright (c) 2013 Ghozy Arif Fajri <gojigeje@gmail.com>
 
 setup() {
    hari=$(date +%u)
@@ -25,7 +53,7 @@ setup() {
 }
 
 # waktu
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 waktu_namaBulan()
 {  
    case "$1" in
@@ -160,7 +188,7 @@ waktu_() {
 }
 
 # siangmalam
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 siangmalam_cek()
 {
    case "$jam" in
@@ -188,7 +216,7 @@ siangmalam_() {
 }
 
 # greeting
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 greeting_cek()
 {
       case "$jam" in
@@ -348,7 +376,7 @@ greeting_()
 }
 
 # koneksi
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 koneksi_() {
    if eval "ping -c 1 8.8.4.4 -w 2 > /dev/null 2>&1"; then
      echo "Siip, terhubung dengan internet.. Online.. Online... :D"
@@ -358,7 +386,7 @@ koneksi_() {
 }
 
 # server
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 server_cek_httpd() {
    stat_httpd=$(ps ax | grep -v grep | grep -v conkyrcd | grep -c httpd)
    if [ $stat_httpd -le 0 ]
@@ -449,8 +477,8 @@ server_() {
    esac
 }
 
-# main
-# ----------------------------------------------------------------------
+# cache
+# ----------------------------------------------------------------------------------
 cache_() {
    cd /var/cache/apt/archives
    jumlah=$(ls | wc -l)
@@ -464,7 +492,7 @@ cache_() {
 }
 
 # main
-# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 setup
 case "$1" in
    "waktu" )
