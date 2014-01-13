@@ -13,11 +13,10 @@
 # [ ] cek cache                        cache
 # [ ] updatemon                        update
 # [ ] last update last scanpackages    update?
-# [ ] dmesg                            dmesg
 
 # ----------------------------------------------------------------------
 
-function setup() {
+setup() {
    hari=$(date +%u)
    tanggal=$(date +%d)
    bulan=$(date +%m)
@@ -27,7 +26,7 @@ function setup() {
 
 # waktu
 # ----------------------------------------------------------------------
-function waktu_namaBulan()
+waktu_namaBulan()
 {  
    case "$1" in
    "01")
@@ -75,7 +74,7 @@ function waktu_namaBulan()
 }
 
 # tampilkan nama hari
-function waktu_namaHari()
+waktu_namaHari()
 {  
    case "$1" in
    "1")
@@ -108,14 +107,14 @@ function waktu_namaHari()
 }
 
 # cetak hari, tanggal bulan tahun
-function waktu_hariIni()
+waktu_hariIni()
 {
    waktu_namaBulan $bulan > /dev/null
    waktu_namaHari $hari > /dev/null
    echo "$namahari, $tanggal $namabulan $tahun"
 }
 
-function waktu_() {
+waktu_() {
    case "$1" in
       "namahari")
          if [ -z "$2" ]; 
@@ -127,10 +126,10 @@ function waktu_() {
       ;;
       "hari")
          waktu_namaHari $hari > /dev/null
-         echo $namahari
+         echo "$namahari"
       ;;
       "tanggal")
-         echo $tanggal
+         echo "$tanggal"
       ;;
       "bulan")
          if [ -z "$2" ]; 
@@ -141,7 +140,7 @@ function waktu_() {
          fi
       ;;
       "tahun")
-         echo $tahun
+         echo "$tahun"
       ;;
       "hariini")
          waktu_hariIni
@@ -185,7 +184,7 @@ siangmalam_cek()
 
 siangmalam_() {
    siangmalam_cek
-   echo $greet
+   echo "$greet"
 }
 
 # greeting
@@ -345,17 +344,109 @@ greeting_()
 {
    greeting_cek
    greeting_hari_jumat
-   echo $greet
+   echo "$greet"
 }
 
 # koneksi
 # ----------------------------------------------------------------------
-function koneksi_() {
+koneksi_() {
    if eval "ping -c 1 8.8.4.4 -w 2 > /dev/null 2>&1"; then
      echo "Siip, terhubung dengan internet.. Online.. Online... :D"
    else
      echo "Tidak terhubung dengan internet.. payah.. :("
    fi 
+}
+
+# server
+# ----------------------------------------------------------------------
+server_cek_httpd() {
+   stat_httpd=$(ps ax | grep -v grep | grep -c httpd)
+   if [ $stat_httpd -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_mysqld() {
+   stat_mysqld=$(ps ax | grep -v grep | grep -c mysqld)
+   if [ $stat_mysqld -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_ftpd() {
+   stat_ftpd=$(ps ax | grep -v grep | grep -c ftpd)
+   if [ $stat_ftpd -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_sshd() {
+   stat_sshd=$(ps ax | grep -v grep | grep -c sshd)
+   if [ $stat_sshd -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_named() {
+   stat_named=$(ps ax | grep -v grep | grep -c named)
+   if [ $stat_named -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_logkeys() {
+   stat_logkeys=$(ps ax | grep -v grep | grep -c logkeys)
+   if [ $stat_logkeys -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+server_cek_nginx() {
+   stat_nginx=$(ps ax | grep -v grep | grep -c nginx)
+   if [ $stat_nginx -le 0 ]
+      then
+         echo "OFF"
+      else
+         echo "ON"
+   fi
+}
+
+server_() {
+   case "$1" in
+      "httpd" )
+         server_cek_httpd
+      ;;
+      "mysqld" )
+         server_cek_mysqld
+      ;;
+      "ftpd" )
+         server_cek_ftpd
+      ;;
+      "sshd" )
+         server_cek_sshd
+      ;;
+      "named" )
+         server_cek_named
+      ;;
+      "logkeys" )
+         server_cek_logkeys
+      ;;
+      "nginx" )
+         server_cek_nginx
+      ;;
+   esac
 }
 
 
@@ -368,15 +459,16 @@ case "$1" in
       waktu_ "$@"
    ;;
    "siangmalam" )
-      shift
       siangmalam_
    ;;
    "greeting" )
-      shift
       greeting_
    ;;
    "koneksi" )
-      shift
       koneksi_
+   ;;
+   "server" )
+      shift
+      server_ "$@"
    ;;
 esac
