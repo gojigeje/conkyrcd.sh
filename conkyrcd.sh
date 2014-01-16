@@ -28,10 +28,10 @@
 # [v] cek koneksi                      koneksi        ok
 # [v] cek server                       server         ok
 # [v] cek cache                        cache          ok
-# [ ] hijri                            hijri          
-# [ ] kernel checker                   kernel         
 #
 # NOT-TODO
+# [ ] kernel checker                   kernel         done (https://github.com/gojigeje/kernel-mainline-checker.sh)
+# [ ] hijri                            hijri          done (https://github.com/gojigeje/hijri.sh)
 # [ ] imsakiyah                        imsakiyah      done (https://github.com/gojigeje/imsakiyah.sh)
 # [ ] updatemon                        update         perlu sudo
 # [ ] last update last scanpackages    update?        perlu monitor apt-get
