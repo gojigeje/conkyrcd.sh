@@ -21,23 +21,6 @@
 # twitter  : @gojigeje
 # G+       : gplus.to/gojigeje
 #
-# TODO                               # parameter    # note
-# [v] tanggalan hari bulan             waktu          ok
-# [v] siangmalam                       siangmalam     ok
-# [v] greeting                         greet          ok
-# [v] cek koneksi                      koneksi        ok
-# [v] cek server                       server         ok
-# [v] cek cache                        cache          ok
-#
-# NOT-TODO
-# [ ] kernel checker                   kernel         done (https://github.com/gojigeje/kernel-mainline-checker.sh)
-# [ ] hijri                            hijri          done (https://github.com/gojigeje/hijri.sh)
-# [ ] imsakiyah                        imsakiyah      done (https://github.com/gojigeje/imsakiyah.sh)
-# [ ] updatemon                        update         perlu sudo
-# [ ] last update last scanpackages    update?        perlu monitor apt-get
-# [ ] dmesg                            dmesg          dmesg ga perlu script eksternal
-# [ ] conan?                           conan?         ga penting buat orang lain
-#
 # LISENSI
 # ----------------------------------------------------------------------------------
 # Open Source tentunya :)
@@ -197,6 +180,9 @@ siangmalam_cek()
    ;;
    03|04|05|06|07|08|09|10)
       greet="pagi"
+   ;;
+   11|12|13|14)
+      greet="siang"
    ;;
    15|16|17|18)
       greet="sore"
