@@ -1,8 +1,15 @@
 conkyrcd.sh
 ===========
 
-Simple bash script to display various system information. Intended to use with conky as external script.
+Simple bash script to display various system information. Intended to use with conky as external script so it's really easy to build simple but informative conky like this:
 
+![conkyrcd.jpg](https://raw.github.com/gojigeje/conkyrcd.sh/master/conkyrcd.jpg "conkyrcd.jpg")
+
+This script will provide additional output for your conky. See the **yellow-colored** marks on the screenshot. The green one are available from another script:
+
+- [hijri.sh](https://github.com/gojigeje/hijri.sh) -- to display current date in Islamic date (hijri / hijriyah)
+- [imsakiyah.sh](https://github.com/gojigeje/imsakiyah.sh) -- to display today's praying time (waktu sholat)
+- [kernel-mainline-checker.sh](https://github.com/gojigeje/kernel-mainline-checker.sh) -- to check stable and RC mainline kernel from ubuntu kernel ppa website.
 
 #### USAGE
 * Make script executable
@@ -16,9 +23,6 @@ ${execi 5 bash /path/to/conkyrcd.sh parameters subparameter}
 #### PARAMETERS / ARGUMENTS
 In order to display conkyrcd output on your conky, you'll need to call conkyrcd using _exec_/_execi_ tag in your conky config with some parameters/arguments. There are some parameters avalilable:
 
-_For this example, Im going to run conkyrcd on terminal to show you the output, you still have to call it from your conky config to actually display it on your conky._
-
-
 | Parameter | Function | Sub-parameter | 
 | --- | --- | --- |  
 | `waktu` | display current date, also localized day name and month name in Bahasa Indonesia | `waktu` `hari` `tanggal` `bulan` `tahun` |
@@ -29,6 +33,7 @@ _For this example, Im going to run conkyrcd on terminal to show you the output, 
 | `cache`| display apt-get cache folder status, it counts the number of .deb file and their total size | _none_ |
 
 #### OUTPUT
+_For this example, Im going to run conkyrcd on terminal to show you the output, you still have to call it from your conky config to actually display it on your conky._
 
 ##### `waktu`
 ```bash
@@ -93,3 +98,5 @@ Tidak ada file .deb baru di cache..
 $ ./conkyrcd.sh cache
 Ada 3 file .deb di cache  -  Total: 15M  -->  backup / cleanup ?
 ```
+
+_Hack the script :)_
